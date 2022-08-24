@@ -5,7 +5,7 @@ const app=express();
 
 // here we are told the sever to view the ejs file 
 app.set('view engine','ejs');
-app.set('view','./views');
+app.set('views','./views');
 
 
 
@@ -14,7 +14,7 @@ app.set('view','./views');
 
 app.use('/',require('./routes'));
 
-//setting  middleware to set our view engine
+//setting  middleware to setup our view engine
 
 app.set('view engine','ejs');
 app.set('views','./views');
