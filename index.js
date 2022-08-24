@@ -10,10 +10,14 @@ app.set('view','./views');
 
 
 //use express router
+//any request came then requir index.routes 
 
 app.use('/',require('./routes'));
 
+//setting  middleware to set our view engine
 
+app.set('view engine','ejs');
+app.set('views','./views');
 
 
 app.listen(port,function(err){
