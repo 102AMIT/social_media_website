@@ -1,13 +1,12 @@
 const express=require('express');
 const port=8001;
 const app=express();
-
-
 //we are now intalling the layout ejs library and create a folder on views of layout.ejs
 //terminal command for install the layout library is : npm install express-ejs-layouts
 // here we are reqiure the lauout library
 const expressLayouts=require('express-ejs-layouts');
-
+//here we require mongoose
+const db=require('./config/mongoose');
 
 //we are using asset file here by giving the folder address
 app.use(express.static('./assets'));
