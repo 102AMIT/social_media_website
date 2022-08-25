@@ -1,19 +1,12 @@
-<html>
-    <head>
-        <title>
-            <%= title %>
-        </title>
-    </head>
-    <body>
-
+        <!-- adding dedicated css for this page -->
+        <link rel="stylesheet" href="/css/home.css">
+<!-- here every thing is controll by layout so we dont need that we only need the content shown in body -->
         <!-- file inclued from _header.ejs syntax -->
         <!-- header and footer area are called layout -->
-        <%- include('_header.ejs'); -%>
-        
-        <h1>codeial/<%=title %></h1>
+        <!-- <%- include('_header.ejs'); -%> -->
 
+        <h1>
+            codeial / <%=title %>
+        </h1>
         <!--  file inclued from _footer.ejs syntax -->
-        <%- include('_footer.ejs'); -%>
-        
-    </body>
-</html>
+        <!-- <%- include('_footer.ejs'); -%> -->

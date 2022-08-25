@@ -2,7 +2,8 @@
 module.exports.profile=function(req,res){
 
     return res.render('user_profile',{
-        title:"Home"
-    });
-}
+        title:"User-profile"
+    })
+
 //this controller is ready to access by a router
+}
