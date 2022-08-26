@@ -12,6 +12,10 @@ const userController=require('../controllers/users_controller');
 //this (/profile) is called maping 
 router.get('/profile',userController.profile);
 
+router.get('/sign-up',userController.signUp);
+
+router.get('/sign-in',userController.signIn);
+
 //here router is exported it self and access by index.js of app
 
 module.exports=router;
