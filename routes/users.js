@@ -16,6 +16,10 @@ router.get('/sign-up',userController.signUp);
 
 router.get('/sign-in',userController.signIn);
 
+// for sign up page
+
+router.post('/create',userController.create);
+
 //here router is exported it self and access by index.js of app
 
 module.exports=router;

@@ -1,4 +1,8 @@
 const express=require('express');
+// npm install cookie-parser is command
+const cookieParser=require('cookie-parser');
+// then we need to tell the app to use it in middleware the home controller
+
 const port=8001;
 const app=express();
 //we are now intalling the layout ejs library and create a folder on views of layout.ejs
@@ -7,6 +11,11 @@ const app=express();
 const expressLayouts=require('express-ejs-layouts');
 //here we require mongoose
 const db=require('./config/mongoose');
+
+// we need to tell reading through the post request of cookie
+
+app.use(express.urlencoded());
+app.use(cookieParser());//set cookies via browser : we are going to console then application tab then we see where are our cookie are stored
 
 //we are using asset file here by giving the folder address
 app.use(express.static('./assets'));
