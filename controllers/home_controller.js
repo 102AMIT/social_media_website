@@ -8,7 +8,7 @@ module.exports.home=function(req,res){
 
     // here we change the cookies
     // this is change via response as you can see below by providing id and value 
-    res.cookie('user_id',25);//repalce the value for specific id
+    // res.cookie('user_id',25);//repalce the value for specific id
 
     return res.render('home',{
         title:"Home"

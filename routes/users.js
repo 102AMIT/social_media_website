@@ -20,6 +20,8 @@ router.get('/sign-in',userController.signIn);
 
 router.post('/create',userController.create);
 
+router.post('/create-session',userController.createSession);
+
 //here router is exported it self and access by index.js of app
 
 module.exports=router;

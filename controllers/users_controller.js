@@ -1,10 +1,26 @@
 //require user for mongodb schema for use the object functionlity
+const { response } = require("express");
 const User = require("../models/user");
+
+
 //here profile is Action to link with router of user profile
 module.exports.profile = function (req, res) {
-  return res.render("user_profile", {
-    title: "User-profile",
-  });
+  if(req.cookies.user_id){
+    User.findById(req.cookies.user_id,function(err,user){
+      if(user){
+        return res.render("user_profile", {
+          title: "User-profile",
+          user:user
+        })
+      }
+      else{
+        return res.redirect('/users/sign-in');
+      }
+    });
+  }
+  else{
+    return res.redirect('/users/sign-in');
+  }
 
   //this controller is ready to access by a router
 };
@@ -62,5 +78,37 @@ module.exports.create = function (req, res) {
 
 // set up a action for sing in and create a session for user
 module.exports.createSession = function (req, res) {
-  // TODO later
+
+
+// step to authenticate    
+// find the user
+
+User.findOne({email:req.body.email},function(err,user){
+    if(err){
+        console.log('error in finding user in singing in');
+        return;
+    }
+    // handle user found
+    
+    if(user){
+        console.log("im user");
+        // handle password which doesn't match
+        if(user.password != req.body.password){
+            return res.redirect('back');
+        }
+
+        // handle session creation
+
+        res.cookie('user_id',user.id);
+        console.log(user.id);
+        
+        return res.redirect('/users/profile');
+
+    }
+    else{
+        // handle user not found
+        return res.redirect('back');
+    }
+})
+
 };
