@@ -112,3 +112,13 @@ User.findOne({email:req.body.email},function(err,user){
 })
 
 };
+
+
+// sign out in user profile ,here when we click on sihgn out then simply we remove cookies from db 
+
+module.exports.signout=function(req,res){
+
+    //clear cookie is also a predefien function were we remove the cookie from browser
+    res.clearCookie('user_id');
+    return res.redirect('back');
+}
