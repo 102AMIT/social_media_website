@@ -13,7 +13,7 @@ const userController=require('../controllers/users_controller');
 //here we are setting the router with controller this router accessing the user controller
 //when any request came for user/profile then this route is uses.
 //this (/profile) is called maping 
-router.get('/profile',userController.profile);
+router.get('/profile',passport.checkAuthentication, userController.profile);
 
 router.get('/sign-up',userController.signUp);
 
@@ -23,9 +23,11 @@ router.get('/sign-in',userController.signIn);
 
 router.post('/create',userController.create);
 
+// this is for manual authontication
+
 router.post('/create-session',userController.createSession);
 // for sign ou
-router.get('/sign-Out',userController.signout);
+// router.get('/sign-Out',userController.signout);
 
 
 // if we need to create a session then  we need to create a route

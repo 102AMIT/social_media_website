@@ -62,7 +62,10 @@ app.use(session({
 app.use(passport.initialize());
 // passport also maintaining the session so this is the function
 app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
 // after that we need to go to the user controller
+
     
 //use express router
 //any request came then requir index.routes 

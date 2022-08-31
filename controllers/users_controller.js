@@ -1,7 +1,7 @@
 //require user for mongodb schema for use the object functionlity
-const { response } = require("express");
+
 const User = require("../models/user");
-response();
+
 
 
 //here profile is Action to link with router of user profile
@@ -87,7 +87,7 @@ return res.redirect('/');
 
 
 
-//this code we are writing by own logic *******
+//this code we are writing for manual authentication
 
 // step to authenticate    
 // find the user

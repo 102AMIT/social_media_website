@@ -41,7 +41,9 @@ passport.use(new LocalStrategy({
 // serializing and deserializing is the pre defined function in the cookies
 // here passport set the user into cookies
 passport.serializeUser(function(user,done){
+    // console.log('serilizeuser')
     done(null,user.id)
+
 });
 
 // deserializing the user from the key in the cookies
@@ -52,6 +54,7 @@ passport.deserializeUser(function(id,done){
             console.log('Error in finding the user id in -->Passport');
             return done(err);
         }
+        console.log('deserialize')
         return done(null,user);
     });
 
@@ -73,8 +76,9 @@ passport.checkAuthentication=function(req,res,next){
 passport.setAuthenticatedUser=function(req,res,next){
     if(req.isAuthenticated()){
         // req.user is contain the current signed in user from the session cookie and we are just sending this to the locals for the views
-        res.locals.user=req.user
+        res.locals.user=req.user;
     }
+    next();
 }
 
 
