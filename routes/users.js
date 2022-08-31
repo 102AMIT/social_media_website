@@ -25,7 +25,7 @@ router.post('/create',userController.create);
 
 // this is for manual authontication
 
-router.post('/create-session',userController.createSession);
+// router.post('/create-session',userController.createSession);
 // for sign ou
 // router.get('/sign-Out',userController.signout);
 

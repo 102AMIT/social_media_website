@@ -6,22 +6,31 @@ const User = require("../models/user");
 
 //here profile is Action to link with router of user profile
 module.exports.profile = function (req, res) {
-  if(req.cookies.user_id){
-    User.findById(req.cookies.user_id,function(err,user){
-      if(user){
-        return res.render("user_profile", {
-          title: "User-profile",
-          user:user
-        })
-      }
-      else{
-        return res.redirect('/users/sign-in');
-      }
-    });
-  }
-  else{
-    return res.redirect('/users/sign-in');
-  }
+
+  return res.render('user_profile', {
+    title: 'User-profile',
+    
+  })
+
+
+  //this is for manual authontication
+
+  // if(req.cookies.user_id){
+  //   User.findById(req.cookie.user_id,function(err,user){
+  //     if(user){
+  //       return res.render("user_profile", {
+  //         title: "User-profile",
+  //         user:user
+  //       })
+  //     }
+  //     else{
+  //       return res.redirect('/users/sign-in');
+  //     }
+  //   });
+  // }
+  // else{
+  //   return res.redirect('/users/sign-in');
+  // }
 
   //this controller is ready to access by a router
 };
@@ -30,6 +39,9 @@ module.exports.profile = function (req, res) {
 
 //render the signUp page
 module.exports.signUp = function (req, res) {
+  if(req.isAuthenticated()){
+    return res.redirect('/users/profile');
+  }
   return res.render("user_sign_up", {
     title: "Codeial:User SignUp",
   });
@@ -37,6 +49,11 @@ module.exports.signUp = function (req, res) {
 
 //render the signIn page
 module.exports.signIn = function (req, res) {
+
+  if(req.isAuthenticated()){
+    return res.redirect('/users/profile');
+  }
+
   return res.render("user_sign_in", {
     title: "Codeial:User SignIn",
   });
