@@ -19,7 +19,7 @@ passport.use(new LocalStrategy({
     function(email,password,done){
         // find the user and establish the identity
         // here we need to import user
-
+        console.log('passport')
         User.findOne({email:email},function(err,user){
             if(err){
                 console.log('Error in finding user--> Passport');
@@ -42,7 +42,7 @@ passport.use(new LocalStrategy({
 // here passport set the user into cookies
 passport.serializeUser(function(user,done){
     done(null,user.id)
-})
+});
 
 // deserializing the user from the key in the cookies
 // cookies send to the browser then browers set back the user id then we need to deserialize it
@@ -56,6 +56,26 @@ passport.deserializeUser(function(id,done){
     });
 
 });
+
+// check the user is authenticated
+
+passport.checkAuthentication=function(req,res,next){
+    // passport have is own methode isAuthenticated for check the req is authenticated or not
+    // if the user is signed in ,then pass on the request to the next function(controller's action)
+    if(req.isAuthenticated()){
+        return next();
+    }
+    // if the user is not sign in
+    return res.redirect('/users/sign-in');
+
+}
+
+passport.setAuthenticatedUser=function(req,res,next){
+    if(req.isAuthenticated()){
+        // req.user is contain the current signed in user from the session cookie and we are just sending this to the locals for the views
+        res.locals.user=req.user
+    }
+}
 
 
 // we create our passport now we need to export its

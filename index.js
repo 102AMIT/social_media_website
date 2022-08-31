@@ -12,6 +12,14 @@ const expressLayouts=require('express-ejs-layouts');
 //here we require mongoose
 const db=require('./config/mongoose');
 
+// here we are create session for authontication we alredy create our authontication 
+// for this session we need to install : npm install express-session
+// used for session cookie
+const session=require('express-session');
+const passport=require('passport');
+const passportLocal=require('./config/passport-local-strategy');
+
+
 // we need to tell reading through the post request of cookie
 
 app.use(express.urlencoded());
@@ -28,19 +36,38 @@ app.use(expressLayouts);
 app.set('layout extractStyles',true);
 app.set('layout extractScripts',true);
 
-
-//use express router
-//any request came then requir index.routes 
-
-app.use('/',require('./routes'));
-
-
 // here we are told the sever to view the ejs file 
 //setting  middleware to setup our view engine
 
 app.set('view engine','ejs');
 app.set('views','./views');
 
+// **********dont under stand this part************
+app.use(session({
+    // name of the id of cookie
+    name:'codeial',
+    // TODO change the secret before deployment in production mode
+    // here secret is the key and blahsomething is it's value for every id
+    secret: 'blahsomething',
+    saveUninitialized:false,
+    resave:false,
+    // here we set the time for cookie .when till cookie is valid like : otp 
+    //calculate in miliSecond
+    cookie:{
+    maxAge:(1000*60*100)
+    }
+
+}));
+
+app.use(passport.initialize());
+// passport also maintaining the session so this is the function
+app.use(passport.session());
+// after that we need to go to the user controller
+    
+//use express router
+//any request came then requir index.routes 
+
+app.use('/',require('./routes'));
 
 app.listen(port,function(err){
     if(err){

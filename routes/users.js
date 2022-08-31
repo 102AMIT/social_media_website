@@ -4,6 +4,9 @@ const express=require('express');
 //this router const are within this module
 const router=express.Router();
 
+// here we need to export passport
+const passport=require('passport');
+
 // get the controller of user
 
 const userController=require('../controllers/users_controller');
@@ -21,12 +24,16 @@ router.get('/sign-in',userController.signIn);
 router.post('/create',userController.create);
 
 router.post('/create-session',userController.createSession);
-
-
-// for sign out
-
+// for sign ou
 router.get('/sign-Out',userController.signout);
-//here router is exported it self and access by index.js of app
 
+
+// if we need to create a session then  we need to create a route
+// use passport as a middleware to authenticate
+router.post('/create-session',passport.authenticate(
+    'local',
+    {failureRedirect:'/users/sign-in'},
+),userController.createSession)
+//here router is exported it self and access by index . js of app
 module.exports=router;
 

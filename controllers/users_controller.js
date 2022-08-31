@@ -1,5 +1,5 @@
 //require user for mongodb schema for use the object functionlity
-const { response } = require("express");
+// const { response } = require("express");
 const User = require("../models/user");
 
 
@@ -79,37 +79,45 @@ module.exports.create = function (req, res) {
 // set up a action for sing in and create a session for user
 module.exports.createSession = function (req, res) {
 
+// here we are using passport js 
+return res.redirect('/');
+// after that we need to go to the routes the user
+
+
+
+
+//this code we are writing by own logic *******
 
 // step to authenticate    
 // find the user
 
-User.findOne({email:req.body.email},function(err,user){
-    if(err){
-        console.log('error in finding user in singing in');
-        return;
-    }
-    // handle user found
+// User.findOne({email:req.body.email},function(err,user){
+//     if(err){
+//         console.log('error in finding user in singing in');
+//         return;
+//     }
+//     // handle user found
     
-    if(user){
-        console.log("im user");
-        // handle password which doesn't match
-        if(user.password != req.body.password){
-            return res.redirect('back');
-        }
+//     if(user){
+//         console.log("im user");
+//         // handle password which doesn't match
+//         if(user.password != req.body.password){
+//             return res.redirect('back');
+//         }
 
-        // handle session creation
+//         // handle session creation
 
-        res.cookie('user_id',user.id);
-        console.log(user.id);
+//         res.cookie('user_id',user.id);
+//         console.log(user.id);
         
-        return res.redirect('/users/profile');
+//         return res.redirect('/users/profile');
 
-    }
-    else{
-        // handle user not found
-        return res.redirect('back');
-    }
-})
+//     }
+//     else{
+//         // handle user not found
+//         return res.redirect('back');
+//     }
+// })
 
 };
 
