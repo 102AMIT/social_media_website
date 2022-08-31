@@ -1,6 +1,7 @@
 //require user for mongodb schema for use the object functionlity
-// const { response } = require("express");
+const { response } = require("express");
 const User = require("../models/user");
+response();
 
 
 //here profile is Action to link with router of user profile
