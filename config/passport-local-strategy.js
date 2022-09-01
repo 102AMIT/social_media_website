@@ -19,7 +19,7 @@ passport.use(new LocalStrategy({
     function(email,password,done){
         // find the user and establish the identity
         // here we need to import user
-        console.log('passport')
+        // console.log('passport')
         User.findOne({email:email},function(err,user){
             if(err){
                 console.log('Error in finding user--> Passport');
@@ -54,7 +54,7 @@ passport.deserializeUser(function(id,done){
             console.log('Error in finding the user id in -->Passport');
             return done(err);
         }
-        console.log('deserialize')
+        // console.log('deserialize')
         return done(null,user);
     });
 

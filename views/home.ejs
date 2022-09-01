@@ -1,5 +1,5 @@
         <!-- adding dedicated css for this page -->
-        <link rel="stylesheet" href="/css/home.css">
+        <link rel="stylesheet" href="/css/user_profile.css">
 <!-- here every thing is controll by layout so we dont need that we only need the content shown in body -->
         <!-- file inclued from _header.ejs syntax -->
         <!-- header and footer area are called layout -->
@@ -10,3 +10,12 @@
         </h1>
         <!--  file inclued from _footer.ejs syntax -->
         <!-- <%- include('_footer.ejs'); -%> -->
+
+        <section id="feed-posts">
+                <h4>Posts</h4>
+                <form action="" id="new-post-form" method="post">
+                        <textarea name="content" id="" cols="30" rows="3" placeholder="Type Here..."></textarea>
+                        <input type="submit" value="Post">
+                </form>
+
+        </section>

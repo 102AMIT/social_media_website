@@ -4,7 +4,7 @@ module.exports.home=function(req,res){
     // then we console here so name or id and value are printed when we refresh the browser according to that we get the value and id here 
     // cookies coming with req and going back in res 
     
-    console.log(req.cookies);
+    // console.log(req.cookies);
 
     // here we change the cookies
     // this is change via response as you can see below by providing id and value 

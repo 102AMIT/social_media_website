@@ -25,6 +25,21 @@ const MongoStore=require('connect-mongo');
 
 
 
+// we are working on sass and scss
+// for that we need to install sass middleware : npm install node-sass-middleware
+// now we need to require the sass
+const sassMiddleware=require('node-sass-middleware');
+
+app.use(sassMiddleware({
+
+    src:'./assets/scss',
+    dest:'./assets/css',
+    debug:true,
+    outputStyle:'extended',
+    prefix:'/css'
+}));
+
+
 
 
 // we need to tell reading through the post request of cookie
