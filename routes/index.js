@@ -15,6 +15,9 @@ router.get('/',homeController.home);
 //if the req came for users then use this routes
 router.use('/users',require('./users'));
 
+// for post
+
+router.use('/posts',require('./posts'));
 
 
 // here we are exporting the router
