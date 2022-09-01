@@ -36,6 +36,11 @@ router.post('/create-session',passport.authenticate(
     'local',
     {failureRedirect:'/users/sign-in'},
 ),userController.createSession)
+
+
+
+router.get('/sign-out',userController.destroySession);
+
 //here router is exported it self and access by index . js of app
 module.exports=router;
 

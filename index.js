@@ -19,6 +19,13 @@ const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 
+// we are installing mongo connect : npm install connect-mongo
+// why we install mongo connect because when we restart our server then every time our cookies is reset 
+const MongoStore=require('connect-mongo');
+
+
+
+
 
 // we need to tell reading through the post request of cookie
 
@@ -42,6 +49,8 @@ app.set('layout extractScripts',true);
 app.set('view engine','ejs');
 app.set('views','./views');
 
+
+// here we also use mongo store for store or save the cookies if our server is restarted then we don't loose the cookies
 // **********dont under stand this part************
 app.use(session({
     // name of the id of cookie
@@ -55,8 +64,18 @@ app.use(session({
     //calculate in miliSecond
     cookie:{
     maxAge:(1000*60*100)
-    }
+    },//define another key over here for mongoconnect
+    store: MongoStore.create(
+        {
+           mongoUrl:'mongodb://localhost:27017/codeial_development',
+           autoRemove:'disabled'
+        },
+        function(err){
+            console.log(err || 'connect mongo db cookies  setup ok');
+        }
+    )
 
+        
 }));
 
 app.use(passport.initialize());

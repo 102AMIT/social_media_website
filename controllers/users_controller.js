@@ -139,12 +139,24 @@ return res.redirect('/');
 
 };
 
+// for manual authentication
 
 // sign out in user profile ,here when we click on sihgn out then simply we remove cookies from db 
 
-module.exports.signout=function(req,res){
+// module.exports.signout=function(req,res){
 
-    //clear cookie is also a predefien function were we remove the cookie from browser
-    res.clearCookie('user_id');
-    return res.redirect('back');
-}
+//     //clear cookie is also a predefien function were we remove the cookie from browser
+//     res.clearCookie('user_id');
+//     return res.redirect('back');
+// }
+
+
+// for sign in sign out button
+
+module.exports.destroySession=('/logout', function(req, res, next) {
+  // logout is a pre defined  function passport give it to express
+  req.logout(function(err) {
+    if (err) { return next(err); }
+    res.redirect('/');
+  });
+});
