@@ -23,7 +23,15 @@ module.exports.home=function(req,res){
     // exec is a call back function
     // populate the user for each post
     // after this we got the whole user obaject we want to display the name with the help of ejs
-    Post.find({}).populate('user').exec(function(err,posts){
+    Post.find({}).populate('user')
+    // ************************************* explaination needed
+    .populate({
+        path:'comments',
+        populate:{
+            path:'user'
+        }
+    })
+    .exec(function(err,posts){
         return res.render('home',{
             title:"Codial | Home",
             posts : posts
