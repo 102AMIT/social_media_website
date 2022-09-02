@@ -1,25 +1,27 @@
+// we are creting schema for comment 
+
 const mongoose=require('mongoose');
 
 
-const postSchema=new mongoose.Schema({
+const commentSchema=new mongoose.Schema({
     content:{
         type:String,
         required:true
     },
+    // comment belong to user
     user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
-
     },
-    // include the array of id in all comment in this post schema itself
-    comments:[{
+    post:{
         type:mongoose.Schema.Types.ObjectId,
-        ref:'comment'
-    }]
+        ref:'Post'
+    }
 },{
     timestamps:true
 });
 
-const Post=mongoose.model('Post',postSchema);
+const Comment=mongoose.model('Comment',commentSchema);
+module.exports=Comment;
 
-module.exports=Post;
+
