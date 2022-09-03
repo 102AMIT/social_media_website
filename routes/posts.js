@@ -11,5 +11,7 @@ const postsController=require('../controllers/posts_controller');
 // we already cretated passport .checkAuthentication in config folder in passport-local-strategy
 router.post('/create',passport.checkAuthentication,postsController.create);
 
-
+// we need to create a route for delete post and and comment 
+router.get('/destroy/:id',passport.checkAuthentication,postsController.destroy);
+// after that we need to update our ejs for destroy
 module.exports=router;
