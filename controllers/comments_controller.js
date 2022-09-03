@@ -24,7 +24,7 @@ module.exports.create=function(req,res){
                 // here comment is push to post push function is provided my mongo db
 
                 // here we are pushing the comment in post comment in models of post their we are creting the array of comments
-                
+
                 post.comments.push(comment);
                 // save is also predifine function
                 post.save();
@@ -34,4 +34,17 @@ module.exports.create=function(req,res){
             });
         }
     });
+
 }
+
+// here i'm  deleting a comment by serching id by params 
+
+module.exports.destroy=function(req,res){
+    Comment.findById(req.params.id,function(err,comment){
+        if(comment.user == req.user.id){
+            //before deleting we need to fetch id of comment and find the comment from the array and delete it
+
+        }
+    })
+}
+
