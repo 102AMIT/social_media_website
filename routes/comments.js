@@ -11,6 +11,10 @@ const commentsController=require('../controllers/comments_controller');
 // we already cretated passport .checkAuthentication in config folder in passport-local-strategy
 router.post('/create',passport.checkAuthentication,commentsController.create);
 
+// creting route for delete comment 
+
+router.get('/destroy/:id',passport.checkAuthentication,commentsController.destroy);
+
 // after we we need to tell the main router index.js if the request is comming for comment then use this route
 
 module.exports=router;

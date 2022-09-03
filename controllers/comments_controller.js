@@ -3,6 +3,7 @@ const Comment=require('../models/comment');
 
 // we also need to require post because when we comment then the comment refer to which post we know that time
 const Post=require('../models/post');
+const { post } = require('../routes/comments');
 module.exports.create=function(req,res){
     // this post is a id we are declare in home.ejs by this id we are track the post
     Post.findById(req.body.post,function(err,post){
@@ -43,7 +44,15 @@ module.exports.destroy=function(req,res){
     Comment.findById(req.params.id,function(err,comment){
         if(comment.user == req.user.id){
             //before deleting we need to fetch id of comment and find the comment from the array and delete it
-
+            let postId=comment.post;
+            comment.remove();
+            // here we are using pull function it's predefine
+            // here comments is array we are creting in model post and here it's store the id from req.params,id
+            Post.findByIdAndUpdate(postId, {$pull: {comments: req.params.id}},function(err,post){
+                return res.redirect('back');
+            })
+        }else{
+            return res.redirect('back');
         }
     })
 }
