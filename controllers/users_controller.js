@@ -6,11 +6,15 @@ const User = require("../models/user");
 
 //here profile is Action to link with router of user profile
 module.exports.profile = function (req, res) {
+  User.findById(req.param.id,function(err,user){
 
-  return res.render('user_profile', {
-    title: 'User-profile',
+    return res.render('user_profile', {
+      title: 'User-profile',
+      profile_user:user
+  });
+  
     
-  })
+  });
 
 
   //this is for manual authontication

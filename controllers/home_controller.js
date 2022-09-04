@@ -1,4 +1,7 @@
 const Post = require('../models/post');
+const User=require('../models/user');
+
+
 module.exports.home=function(req,res){
     // here we get the cookies from brower we need to set first 
     // first we need to go to console then application then cookies then the expend it click on url and set the name as id and value according to that id 
@@ -32,11 +35,16 @@ module.exports.home=function(req,res){
         }
     })
     .exec(function(err,posts){
+
+        User.find({},function(err,users){
         return res.render('home',{
             title:"Codial | Home",
-            posts : posts
+            posts : posts,
+            all_users:users
+        });
         });
     })
+
     
 
     //this is diretly showing to the brower
