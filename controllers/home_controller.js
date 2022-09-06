@@ -11,8 +11,8 @@ module.exports.home=async function(req,res){
 
     try{
 
-        let posts= await Post.find({}).populate('user')
-    // ************************************* explaination needed
+        let posts= await Post.find({})
+        .populate('user')
         .populate({
             path:'comments',
             populate:{
@@ -26,9 +26,7 @@ module.exports.home=async function(req,res){
             title:"Codial | Home",
             posts : posts,
             all_users:users
-        });
-
-        
+        });   
     }
     catch(err){
         console.log('Error',err);
