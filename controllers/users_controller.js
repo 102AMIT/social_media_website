@@ -6,14 +6,14 @@ const User = require("../models/user");
 
 //here profile is Action to link with router of user profile
 module.exports.profile = function (req, res) {
-  User.findById(req.param.id,function(err,user){
+  User.findById(req.params.id,function(err,user){
 
     return res.render('user_profile', {
       title: 'User-profile',
       profile_user:user
   });
-  
-    
+
+
   });
 
 
@@ -38,6 +38,18 @@ module.exports.profile = function (req, res) {
 
   //this controller is ready to access by a router
 };
+
+// added action over here
+module.exports.update=function(req,res){
+  if(req.user.id ==req.params.id){
+    User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
+      return res.redirect('back');
+    });
+  }else{
+    return res.status(401).send('Unauthorized');
+    // now we need to crete a routes
+  }
+}
 
 //we need to add action over here
 

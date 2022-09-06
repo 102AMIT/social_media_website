@@ -14,6 +14,7 @@ const userController=require('../controllers/users_controller');
 //when any request came for user/profile then this route is uses.
 //this (/profile) is called maping 
 router.get('/profile/:id',passport.checkAuthentication, userController.profile);
+router.post('/update/:id',passport.checkAuthentication, userController.update);
 
 router.get('/sign-up',userController.signUp);
 
