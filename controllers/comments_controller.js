@@ -3,6 +3,7 @@ const Comment=require('../models/comment');
 
 // we also need to require post because when we comment then the comment refer to which post we know that time
 const Post=require('../models/post');
+// we are implementing here async await function
 module.exports.create= async function(req,res){
     // this post is a id we are declare in home.ejs by this id we are track the post
     try{
