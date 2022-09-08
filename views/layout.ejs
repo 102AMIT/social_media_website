@@ -3,7 +3,9 @@
         <title>
             <%= title %>
         </title>
-
+        <!-- adding cdn for flash animation in css and js -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/noty/3.1.4/noty.min.js"></script>
         <!-- linking our css file here -->
         <link rel="stylesheet" href="/css/layout.css">
         <!-- adding scss -->
@@ -19,16 +21,7 @@
         <!-- header and footer area are called layout -->
         <%- include('_header.ejs'); -%>
         <!-- for flash message -->
-
-        <% if(flash.success && flash.success.length>0){%>
-            
-            <h5>
-                <%= flash.success %>
-
-            </h5>
-            
-        <%}%>
-
+        
 
         <!-- no need to use variable part only we are use the common part -->
         <!-- we need to tell that where is varible part render that is told by body -->
@@ -41,5 +34,29 @@
         <%- include('_footer.ejs'); -%>  
         
         <%- script %>
+
+        <!-- for flash messages -->
+        <script>
+            <% if (flash.success && flash.success.length >0) { %>
+                new Noty({
+                theme:'relax',
+                text: "<%= flash.success %>",
+                type:'info',
+                layout:'topRight',
+                timeout:1500
+                }).show();
+            <% } %>
+
+            <% if (flash.error && flash.error.length >0) { %>
+                new Noty({
+                theme:'relax',
+                text: "<%= flash.success %>",
+                type:'error',
+                layout:'topRight',
+                timeout:1500
+                }).show();
+            <% } %>
+
+        </script>
     </body>
 </html>
