@@ -12,6 +12,8 @@ module.exports.home=async function(req,res){
     try{
 
         let posts= await Post.find({})
+        // sort for create post when we create a new post it's shown on top
+        .sort('-createdAt')
         .populate('user')
         .populate({
             path:'comments',
