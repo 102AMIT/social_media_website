@@ -18,10 +18,25 @@
         <!-- file inclued from _header.ejs syntax -->
         <!-- header and footer area are called layout -->
         <%- include('_header.ejs'); -%>
+        <!-- for flash message -->
+
+        <% if(flash.success && flash.success.length>0){%>
+            
+            <h5>
+                <%= flash.success %>
+
+            </h5>
+            
+        <%}%>
+
+
         <!-- no need to use variable part only we are use the common part -->
         <!-- we need to tell that where is varible part render that is told by body -->
         <!-- here body is predefine in library so body tell use the varibale part here -->
+        <main id="layout-main">
         <%- body %>
+
+        </main>
          <!-- file inclued from _footer.ejs syntax -->
         <%- include('_footer.ejs'); -%>  
         

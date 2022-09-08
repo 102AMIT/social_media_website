@@ -112,7 +112,7 @@ module.exports.create = function (req, res) {
 
 // set up a action for sing in and create a session for user
 module.exports.createSession = function (req, res) {
-
+req.flash('success','Logged in Successfully');
 // here we are using passport js 
 return res.redirect('/');
 // after that we need to go to the routes the user
@@ -173,6 +173,7 @@ module.exports.destroySession=('/logout', function(req, res, next) {
   // logout is a pre defined  function passport give it to express
   req.logout(function(err) {
     if (err) { return next(err); }
+    req.flash('success','You have Logged out !');
     res.redirect('/');
   });
 });

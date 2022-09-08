@@ -2,7 +2,6 @@ const express=require('express');
 // npm install cookie-parser is command
 const cookieParser=require('cookie-parser');
 // then we need to tell the app to use it in middleware the home controller
-
 const port=8001;
 const app=express();
 //we are now intalling the layout ejs library and create a folder on views of layout.ejs
@@ -11,24 +10,26 @@ const app=express();
 const expressLayouts=require('express-ejs-layouts');
 //here we require mongoose
 const db=require('./config/mongoose');
-
 // here we are create session for authontication we alredy create our authontication 
 // for this session we need to install : npm install express-session
 // used for session cookie
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
-
 // we are installing mongo connect : npm install connect-mongo
 // why we install mongo connect because when we restart our server then every time our cookies is reset 
 const MongoStore=require('connect-mongo');
-
-
-
 // we are working on sass and scss
 // for that we need to install sass middleware : npm install node-sass-middleware
 // now we need to require the sass
 const sassMiddleware=require('node-sass-middleware');
+// for flash messages
+const flash=require('connect-flash');
+// we are create a custom middleware for flash message and we need to require this middleware
+const customMware=require('./config/middleware');
+// after that we need to use this 
+
+
 
 app.use(sassMiddleware({
 
@@ -100,10 +101,18 @@ app.use(passport.session());
 app.use(passport.setAuthenticatedUser);
 // after that we need to go to the user controller
 
-    
+
+app.use(flash());
+// after that we are going to user controller and then set in create session and destroy session
+// after that we create a middleware.js 
+
+// we are creteing flash middleware and we also import this and now we need to use setFlash is a object we are creting in middleware
+app.use(customMware.setFlash);
+// after that we need to access into our template layout in views/layout.ejs
+
+
 //use express router
 //any request came then requir index.routes 
-
 app.use('/',require('./routes'));
 
 app.listen(port,function(err){
