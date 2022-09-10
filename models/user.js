@@ -41,7 +41,7 @@ let storage = multer.diskStorage({
     }
   });
 
-//   Static methods
+//  Static methods
 // .single says only one file uploaded for filed name avatar
 userSchema.statics.uploadedAvatar=multer({storage: storage}).single('avatar');
 // here we are made avartar path publically

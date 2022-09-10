@@ -1,7 +1,11 @@
 //require user for mongodb schema for use the object functionlity
 
 const User = require("../models/user");
-const flash=require('connect-flash');
+
+// for remove the file when upload a new file
+
+const fs=require('fs');
+const path=require('path');
 
 
 //here profile is Action to link with router of user profile
@@ -64,13 +68,30 @@ module.exports.update= async function(req,res){
             user.email=req.body.email;
 
             if(req.file){
+
+              // handle the profile upload case when we change the profile the profile photo is not repalce now the bug we are handle their 
+
+              if(user.avatar){
+                // for unlink the previous image from db
+                fs.unlinkSync(path.join(__dirname, '..' , user.avatar));
+              }
+
+              // **************************************************
+
+              // // if the avatar is deleted then we need to remove the id and 
+              // if(user.avatar==""){
+              //   fs.linkSync(path.join(__dirname, '..' , user.avatar+req.file.filename))
+              // }
+
               // this is saving the path of the uploaded file into the avatar field in the user
+              
               user.avatar=User.avatarPath + '/' +req.file.filename;
+              
             }
             // saving the user
             user.save();
             return res.redirect('back');
-        });
+        }); 
 
     }catch(err){
         req.flash('error',err);

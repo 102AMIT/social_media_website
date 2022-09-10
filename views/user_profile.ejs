@@ -1,3 +1,4 @@
+        <link rel="stylesheet" href="/css/user_profile.css">
         <!-- here every thing is controll by layout so we dont need that we only need the content shown in body -->
         <!-- file inclued from _header.ejs syntax -->
         <!-- header and footer area are called layout -->
@@ -8,7 +9,8 @@
 
         <!--  file inclued from _footer.ejs syntax -->
         
-        
+        <!-- VIEW IMAGE ON BROWSER -->
+        <img src="<%= user.avatar %>" alt="<%= user.name %>" width="100">
 
         <% if(user.id == profile_user.id){ %>
                 

@@ -51,6 +51,10 @@ app.use(cookieParser());//set cookies via browser : we are going to console then
 //we are using asset file here by giving the folder address
 app.use(express.static('./assets'));
 
+// showing our uploaded profile picture
+// make the upload path available to the browser
+app.use('/uploads',express.static(__dirname + '/uploads'));
+
 // we need to tell the app to use it
 // we need to put before our routes in the routes the views and going to be render before that we need to tell all the views are goinf to be render belong to some sort of layout or a function which can define which layout is use 
 app.use(expressLayouts);
