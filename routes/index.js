@@ -23,5 +23,10 @@ router.use('/posts',require('./posts'));
 
 router.use('/comments',require('./comments'));
 
+
+// using api
+router.use('/api',require('./api'));
+
+
 // here we are exporting the router
 module.exports=router;
