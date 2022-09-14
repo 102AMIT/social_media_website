@@ -68,7 +68,7 @@ module.exports.destroy=async function(req,res){
             return res.redirect('back');
         }
 
-    }catch{
+    }catch(err){
         req.flash('error',err);
         return res.redirect('back');
     }  
