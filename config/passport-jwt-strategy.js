@@ -8,7 +8,7 @@ const User = require('../models/user');
 
 let opts={
     // hear hearder is a key called authorizetion nad here Bearer having the JWT token 
-    jwtFromRequest:ExtractJWT.fromAuthHeaderAsBearerToken,
+    jwtFromRequest:ExtractJWT.fromAuthHeaderAsBearerToken(),
     secretOrKey : 'codeial'
 
 }

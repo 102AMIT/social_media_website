@@ -63,7 +63,10 @@ module.exports.update= async function(req,res){
             if(err){
               console.log('****Multer Error****: ',err);
             }
-
+            // console.log(req.body);
+            // console.log(req.params);
+            // console.log(req);
+            // console.log(req.sessionStore.options['mongoUrl']);
             user.name=req.body.name;
             user.email=req.body.email;
 
