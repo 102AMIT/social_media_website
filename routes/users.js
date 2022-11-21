@@ -42,6 +42,15 @@ router.post('/create-session',passport.authenticate(
 
 router.get('/sign-out',userController.destroySession);
 
+
+// route for google auth
+// this route provided by passport /auth/google 
+router.get('/auth/google',passport.authenticate('google',{scope:['profile','email']}));
+
+//call back routes
+
+router.get('/auth/google/callback',passport.authenticate('google',{failureRedirect:'/users/sign-in'}),userController.createSession);
+
 //here router is exported it self and access by index . js of app
 module.exports=router;
 

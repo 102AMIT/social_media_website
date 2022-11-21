@@ -20,6 +20,9 @@ const passportLocal=require('./config/passport-local-strategy');
 // this is for passport jwt it's work for api authentication
 const passportJWT=require('./config/passport-jwt-strategy');
 
+// passport google auth
+
+const passportGoogle=require('./config/passport-google-oauth2-strategy');
 
 // we are installing mongo connect : npm install connect-mongo
 // why we install mongo connect because when we restart our server then every time our cookies is reset 
