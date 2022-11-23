@@ -3,6 +3,10 @@ const Comment=require('../models/comment');
 
 // we also need to require post because when we comment then the comment refer to which post we know that time
 const Post=require('../models/post');
+
+// import mailer for sending mail when comment is created
+const commentsMailer=require('../mailers/comments_mailer');
+
 // we are implementing here async await function
 module.exports.create= async function(req,res){
     // this post is a id we are declare in home.ejs by this id we are track the post
@@ -26,6 +30,23 @@ module.exports.create= async function(req,res){
                     post.comments.push(comment);
                     // save is also predifine function
                     post.save();
+
+
+
+                    comment=await comment.populate('user','name email ');
+                    console.log(comment);
+                    commentsMailer.newComment(comment);
+                    if(req.xhr){
+                        
+                        return res.status(200).json({
+                            data:{
+                                comment:comment
+                            },
+                            message:"Comment created !"
+                        });
+                    }
+                    req.flash('success','Comment published');
+
                     res.redirect('/');
                     // now we are creating a comment now we need to go to routes
     

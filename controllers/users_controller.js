@@ -155,7 +155,7 @@ module.exports.create = function (req, res) {
           console.log("error in creating user while singing up");
           return;
         }
-
+        // here we ae redirect to route url
         return res.redirect("/users/sign-in");
       });
     }
