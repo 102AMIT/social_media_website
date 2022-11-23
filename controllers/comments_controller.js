@@ -7,6 +7,14 @@ const Post=require('../models/post');
 // import mailer for sending mail when comment is created
 const commentsMailer=require('../mailers/comments_mailer');
 
+// require kue
+
+const queue=require('../config/kue');
+
+// require comment email worker
+
+const commentEmailWorker=require('../workers/comment_email_worker');
+
 // we are implementing here async await function
 module.exports.create= async function(req,res){
     // this post is a id we are declare in home.ejs by this id we are track the post
@@ -35,7 +43,21 @@ module.exports.create= async function(req,res){
 
                     comment=await comment.populate('user','name email ');
                     console.log(comment);
-                    commentsMailer.newComment(comment);
+                    // here we are passing the comments in node mailer
+                    // commentsMailer.newComment(comment);
+
+
+                    // here we are passing the comments in queue of email workers
+
+                    // here we are using save beacuse we are put in into data base
+                    let job=queue.create('emails',comment).save(function(err){
+                        if(err){
+                            console.log('error in creating a queue',err);
+                        }
+                        console.log("job.id",job.id);
+                    });
+
+
                     if(req.xhr){
                         
                         return res.status(200).json({
