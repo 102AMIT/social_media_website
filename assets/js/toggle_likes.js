@@ -1,11 +1,12 @@
 // CHANGE :: create a class to toggle likes when a link is clicked, using AJAX
 class ToggleLike{
+    
     constructor(toggleElement){
         this.toggler = toggleElement;
         this.toggleLike();
     }
 
-
+    
     toggleLike(){
         $(this.toggler).click(function(e){
             e.preventDefault();

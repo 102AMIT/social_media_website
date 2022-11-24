@@ -17,15 +17,15 @@ module.exports.home=async function(req,res){
         .populate('user')
         .populate({
             path:'comments',
-            // populate:{
-            //     path:'user'
-            // },
+            populate:{
+                path:'user'
+            },
             // populate:{
             //     path:'likes'
             // }
-            // populate:[
-            //     'user','likes'
-            // ]
+            populate:[
+                'user','likes'
+            ]
         }).populate('likes');
 
         let users= await User.find({});
@@ -34,7 +34,11 @@ module.exports.home=async function(req,res){
             title:"Codial | Home",
             posts : posts,
             all_users:users
-        });   
+        }); 
+        // return res.json(200,{
+        //     posts : posts,
+        //     all_users:users
+        // })
     }
     catch(err){
         console.log('Error',err);
