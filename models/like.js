@@ -14,6 +14,8 @@ const likeSchema=new mongoose.Schema({
     onModel:{
         type:String,
         required:true,
+        // enum model means each like either post and comment nothing other than that
+        // this define only two model contains like, post and comment 
         enum:['Post','Comment']
     }
 },{

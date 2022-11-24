@@ -133,3 +133,8 @@ app.listen(port,function(err){
     }
     console.log(`server is running on port : ${port}`);
 });
+
+
+// we are now implemented redis so first we need to start redis otherwise we are getting error
+// search wsl and type this in command
+// sudo service redis-server start
