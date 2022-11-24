@@ -7,7 +7,7 @@ const Comment=require('../models/comment');
 
 module.exports.toggleLike=async function(req,res){
     try{
-
+        // example of url we get
         // likes/toggle/?=abcdf&type=Post/Comment
         let likeable;
         let deleted=false;
@@ -25,13 +25,13 @@ module.exports.toggleLike=async function(req,res){
             user:req.user._id
         })
 
-        // if a like already exists
+        // if a like already exists then delete it else make a new like
 
         if(existingLike){
             likeable.likes.pull(existingLike._id);
             likeable.save();
             existingLike.remove();
-            deleted:true;
+            deleted=true;
 
         }else{
             // else make a new like
@@ -41,7 +41,7 @@ module.exports.toggleLike=async function(req,res){
                 onModel:req.query.type
             });
 
-            likeable.likes.push(like._id);
+            likeable.likes.push(newLike._id);
             likeable.save();
         }
 

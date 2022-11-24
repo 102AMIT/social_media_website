@@ -9,7 +9,7 @@
 
 
 <!--  file inclued from _footer.ejs syntax -->
-<!-- <%- include('_footer.ejs'); -%> -->
+
 
 <div id="home-container">
   <section id="feed-posts">
@@ -25,7 +25,7 @@
         <div id="posts-list-container">
           <ul>
             <% for(post of posts){ %>
-              <!-- include _post -->
+              
               <%- include('_post')-%>
                 <% } %>
           </ul>
@@ -46,4 +46,15 @@
 </div>
 
 
+<!-- importing this script for creating the comments -->
+<script src="/js/home_post_comments.js" ></script>
 <script src="/js/home_posts.js"></script>
+
+<!-- CHANGE :: import the script file for toggle likes, also run it over for the already present posts and comments on the page -->
+<script src="js/toggle_likes.js"></script>
+<script>
+    $('.toggle-like-button').each(function(){
+        let self = this;
+        let toggleLike = new ToggleLike(self);
+    });
+</script>

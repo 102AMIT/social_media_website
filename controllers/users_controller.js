@@ -137,6 +137,7 @@ module.exports.create = function (req, res) {
   //this is in body param so we wirte req.body
   //   console.log(req.body);
   if (req.body.password != req.body.Confirm_Password) {
+    req.flash('error', 'Passwords do not match');
     return res.redirect("back");
   }
 
@@ -145,6 +146,7 @@ module.exports.create = function (req, res) {
   //we need to import the model ../models/user at the top
   User.findOne({ email: req.body.email }, function (err, user) {
     if (err) {
+      req.flash('error', err);
       console.log("error in finding user in singing up");
       return;
     }
@@ -152,6 +154,7 @@ module.exports.create = function (req, res) {
     if (!user) {
       User.create(req.body, function (err, user) {
         if (err) {
+          req.flash('error', err);
           console.log("error in creating user while singing up");
           return;
         }
@@ -161,6 +164,7 @@ module.exports.create = function (req, res) {
     }
     // if user is already present
     else {
+      req.flash('success', 'You have signed up, login to continue!');
       return res.redirect("back");
     }
   });
@@ -228,7 +232,9 @@ return res.redirect('/');
 module.exports.destroySession=('/logout', function(req, res, next) {
   // logout is a pre defined  function passport give it to express
   req.logout(function(err) {
-    if (err) { return next(err); }
+    if (err) { 
+      return next(err); 
+    }
     req.flash('success','You have Logged out !');
     res.redirect('/');
   });

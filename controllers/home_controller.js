@@ -10,17 +10,23 @@ module.exports.home=async function(req,res){
     // after this we got the whole user obaject we want to display the name with the help of ejs
 
     try{
-
+        // CHANGE :: populate the likes of each post and comment
         let posts= await Post.find({})
         // sort for create post when we create a new post it's shown on top
         .sort('-createdAt')
         .populate('user')
         .populate({
             path:'comments',
-            populate:{
-                path:'user'
-            }
-        });
+            // populate:{
+            //     path:'user'
+            // },
+            // populate:{
+            //     path:'likes'
+            // }
+            // populate:[
+            //     'user','likes'
+            // ]
+        }).populate('likes');
 
         let users= await User.find({});
 

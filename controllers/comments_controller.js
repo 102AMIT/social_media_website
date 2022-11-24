@@ -15,6 +15,11 @@ const queue=require('../config/kue');
 
 const commentEmailWorker=require('../workers/comment_email_worker');
 
+// require like 
+
+const Like=require('../models/like');
+
+
 // we are implementing here async await function
 module.exports.create= async function(req,res){
     // this post is a id we are declare in home.ejs by this id we are track the post
@@ -42,7 +47,8 @@ module.exports.create= async function(req,res){
 
 
                     comment=await comment.populate('user','name email ');
-                    console.log(comment);
+
+                    // console.log(comment);
                     // here we are passing the comments in node mailer
                     // commentsMailer.newComment(comment);
 
@@ -94,14 +100,34 @@ module.exports.destroy= async function(req,res){
             // here we are using pull function it's predefine
             // here comments is array we are creting in model post and here it's store the id from req.params,id
            let post= Post.findByIdAndUpdate(postId, {$pull: {comments: req.params.id}});
-                return res.redirect('back');
+
+        //    Change:: destroy the associated likes for this comment
+
+            await Like.deleteMany({likeable:comment._id,onModel:'Comment'});
+
+
+            // send the comment id which was deleted back to the views
+            if (req.xhr){
+                return res.status(200).json({
+                    data: {
+                        comment_id: req.params.id
+                    },
+                    message: "Post deleted"
+                });
+            }
+
+
+            req.flash('success', 'Comment deleted!');
+
+            return res.redirect('back');
             
         }else{
+            req.flash('error', 'Unauthorized');
             return res.redirect('back');
         }
 
-    }catch{
-        console.log('Error',err);
+    }catch(err){
+        req.flash('error', err);
         return;
     }
 }
