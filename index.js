@@ -1,4 +1,6 @@
 const express=require('express');
+
+const env=require('./config/environment');
 // npm install cookie-parser is command
 const cookieParser=require('cookie-parser');
 // then we need to tell the app to use it in middleware the home controller
@@ -37,12 +39,14 @@ const flash=require('connect-flash');
 const customMware=require('./config/middleware');
 // after that we need to use this 
 
+// requireing path for environment varibale
+const path=require('path');
 
 
 app.use(sassMiddleware({
 
-    src:'./assets/scss',
-    dest:'./assets/css',
+    src:path.join(__dirname,env.asset_path,'scss'),
+    dest:path.join(__dirname,env.asset_path,'css'),
     debug:true,
     outputStyle:'extended',
     prefix:'/css'
@@ -57,7 +61,7 @@ app.use(express.urlencoded());
 app.use(cookieParser());//set cookies via browser : we are going to console then application tab then we see where are our cookie are stored
 
 //we are using asset file here by giving the folder address
-app.use(express.static('./assets'));
+app.use(express.static(env.asset_path));
 
 // showing our uploaded profile picture
 // make the upload path available to the browser
@@ -85,7 +89,7 @@ app.use(session({
     name:'codeial',
     // TODO change the secret before deployment in production mode
     // here secret is the key and blahsomething is it's value for every id
-    secret: 'blahsomething',
+    secret: env.session_cookie_key,
     saveUninitialized:false,
     resave:false,
     // here we set the time for cookie .when till cookie is valid like : otp 
