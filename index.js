@@ -123,6 +123,25 @@ app.use(customMware.setFlash);
 // after that we need to access into our template layout in views/layout.ejs
 
 
+// require socket for chat engine
+// setup the chat server to be used socket.io
+const chatServer=require('http').Server(app);
+const chatSockets=require('./config/chat_sockets').chatSockets(chatServer);
+
+// we are getting error in socket.io that why we need to implemant cors
+
+// Cross-Origin Resource Sharing (CORS) is an HTTP-header based mechanism that allows a server to 
+// indicate any origins (domain, scheme, or port) other than its own from which a browser should permit 
+// loading resources
+const cors=require('cors');
+app.use(cors());
+
+
+//listening socket io on different port
+chatServer.listen(5000);
+console.log('chat server is listening on port 5000');
+
+
 //use express router
 //any request came then requir index.routes 
 app.use('/',require('./routes'));
