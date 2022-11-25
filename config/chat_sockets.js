@@ -3,7 +3,7 @@ module.exports.chatSockets=function(socketServer){
     // let io=require('socket.io')(socketServer);
     let io=require('socket.io')(socketServer,{
         cors:{
-            origin:"http://loclahost:5000",
+            origin:"http://localhost:8001",
             methods:["GET","POST"],
             credentials:true
         }
@@ -16,12 +16,18 @@ module.exports.chatSockets=function(socketServer){
         });
 
         socket.on('join_room',function(data){
-            console.log('joining request',data);
+            console.log('joining request ',data);
+
             socket.join(data.chatroom);
 
             io.in(data.chatroom).emit('user_joined',data);
         });
 
+        // delete send_message and broadcast to everyone in the room
+
+        socket.on('send_message',function(data){
+            io.in(data.chatroom).emit('receive_message',data);
+        });
        
     });
 
