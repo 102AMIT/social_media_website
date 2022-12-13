@@ -4,18 +4,18 @@ const User = require("../models/user");
 
 // for remove the file when upload a new file
 
-const fs=require('fs');
-const path=require('path');
+const fs = require('fs');
+const path = require('path');
 
 
 //here profile is Action to link with router of user profile
 module.exports.profile = function (req, res) {
-  User.findById(req.params.id,function(err,user){
+  User.findById(req.params.id, function (err, user) {
 
     return res.render('user_profile', {
       title: 'User-profile',
-      profile_user:user
-  });
+      profile_user: user
+    });
 
 
   });
@@ -44,7 +44,7 @@ module.exports.profile = function (req, res) {
 };
 
 // added action over here
-module.exports.update= async function(req,res){
+module.exports.update = async function (req, res) {
   // if(req.user.id ==req.params.id){
   //   User.findByIdAndUpdate(req.params.id,req.body,function(err,user){
   //     return res.redirect('back');
@@ -54,55 +54,55 @@ module.exports.update= async function(req,res){
   //   // now we need to crete a routes
   // }
 
-  if(req.user.id == req.params.id){
+  if (req.user.id == req.params.id) {
 
-    try{
+    try {
 
-        let user=await User.findById(req.params.id);
-        User.uploadedAvatar(req,res,function(err){
-            if(err){
-              console.log('****Multer Error****: ',err);
-            }
-            // console.log(req.body);
-            // console.log(req.params);
-            // console.log(req);
-            // console.log(req.sessionStore.options['mongoUrl']);
-            user.name=req.body.name;
-            user.email=req.body.email;
+      let user = await User.findById(req.params.id);
+      User.uploadedAvatar(req, res, function (err) {
+        if (err) {
+          console.log('****Multer Error****: ', err);
+        }
+        // console.log(req.body);
+        // console.log(req.params);
+        // console.log(req);
+        // console.log(req.sessionStore.options['mongoUrl']);
+        user.name = req.body.name;
+        user.email = req.body.email;
 
-            if(req.file){
+        if (req.file) {
 
-              // handle the profile upload case when we change the profile the profile photo is not repalce now the bug we are handle their 
+          // handle the profile upload case when we change the profile the profile photo is not repalce now the bug we are handle their 
 
-              if(user.avatar){
-                // for unlink the previous image from db
-                fs.unlinkSync(path.join(__dirname, '..' , user.avatar));
-              }
+          if (user.avatar) {
+            // for unlink the previous image from db
+            fs.unlinkSync(path.join(__dirname, '..', user.avatar));
+          }
 
-              // **************************************************
+          // **************************************************
 
-              // // if the avatar is deleted then we need to remove the id and 
-              // if(user.avatar==""){
-              //   fs.linkSync(path.join(__dirname, '..' , user.avatar+req.file.filename))
-              // }
+          // // if the avatar is deleted then we need to remove the id and 
+          // if(user.avatar==""){
+          //   fs.linkSync(path.join(__dirname, '..' , user.avatar+req.file.filename))
+          // }
 
-              // this is saving the path of the uploaded file into the avatar field in the user
-              
-              user.avatar=User.avatarPath + '/' +req.file.filename;
-              
-            }
-            // saving the user
-            user.save();
-            return res.redirect('back');
-        }); 
+          // this is saving the path of the uploaded file into the avatar field in the user
 
-    }catch(err){
-        req.flash('error',err);
+          user.avatar = User.avatarPath + '/' + req.file.filename;
+
+        }
+        // saving the user
+        user.save();
         return res.redirect('back');
+      });
+
+    } catch (err) {
+      req.flash('error', err);
+      return res.redirect('back');
     }
 
-  }else{
-    req.flash('error','Unauthorized');
+  } else {
+    req.flash('error', 'Unauthorized');
     return res.status(401).send('Unauthorized');
   }
 }
@@ -111,7 +111,7 @@ module.exports.update= async function(req,res){
 
 //render the signUp page
 module.exports.signUp = function (req, res) {
-  if(req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     return res.redirect('/users/profile');
   }
   return res.render("user_sign_up", {
@@ -122,7 +122,7 @@ module.exports.signUp = function (req, res) {
 //render the signIn page
 module.exports.signIn = function (req, res) {
 
-  if(req.isAuthenticated()){
+  if (req.isAuthenticated()) {
     return res.redirect('/users/profile');
   }
 
@@ -172,46 +172,46 @@ module.exports.create = function (req, res) {
 
 // set up a action for sing in and create a session for user
 module.exports.createSession = function (req, res) {
-req.flash('success','Logged in Successfully');
-// here we are using passport js 
-return res.redirect('/');
-// after that we need to go to the routes the user
+  req.flash('success', 'Logged in Successfully');
+  // here we are using passport js 
+  return res.redirect('/');
+  // after that we need to go to the routes the user
 
 
 
 
-//this code we are writing for manual authentication
+  //this code we are writing for manual authentication
 
-// step to authenticate    
-// find the user
+  // step to authenticate    
+  // find the user
 
-// User.findOne({email:req.body.email},function(err,user){
-//     if(err){
-//         console.log('error in finding user in singing in');
-//         return;
-//     }
-//     // handle user found
-    
-//     if(user){
-//         console.log("im user");
-//         // handle password which doesn't match
-//         if(user.password != req.body.password){
-//             return res.redirect('back');
-//         }
+  // User.findOne({email:req.body.email},function(err,user){
+  //     if(err){
+  //         console.log('error in finding user in singing in');
+  //         return;
+  //     }
+  //     // handle user found
 
-//         // handle session creation
+  //     if(user){
+  //         console.log("im user");
+  //         // handle password which doesn't match
+  //         if(user.password != req.body.password){
+  //             return res.redirect('back');
+  //         }
 
-//         res.cookie('user_id',user.id);
-//         console.log(user.id);
-        
-//         return res.redirect('/users/profile');
+  //         // handle session creation
 
-//     }
-//     else{
-//         // handle user not found
-//         return res.redirect('back');
-//     }
-// })
+  //         res.cookie('user_id',user.id);
+  //         console.log(user.id);
+
+  //         return res.redirect('/users/profile');
+
+  //     }
+  //     else{
+  //         // handle user not found
+  //         return res.redirect('back');
+  //     }
+  // })
 
 };
 
@@ -229,13 +229,13 @@ return res.redirect('/');
 
 // for sign in sign out button
 
-module.exports.destroySession=('/logout', function(req, res, next) {
+module.exports.destroySession = ('/logout', function (req, res, next) {
   // logout is a pre defined  function passport give it to express
-  req.logout(function(err) {
-    if (err) { 
-      return next(err); 
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
     }
-    req.flash('success','You have Logged out !');
+    req.flash('success', 'You have Logged out !');
     res.redirect('/');
   });
 });

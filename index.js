@@ -19,6 +19,7 @@ const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
 
+
 // this is for passport jwt it's work for api authentication
 const passportJWT=require('./config/passport-jwt-strategy');
 
@@ -160,5 +161,6 @@ app.listen(port,function(err){
 
 
 // we are now implemented redis so first we need to start redis otherwise we are getting error
-// search wsl and type this in command
+// search ubuntu and type this in command
 // sudo service redis-server start
+// p:AMIT9830
